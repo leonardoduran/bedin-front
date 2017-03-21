@@ -1,0 +1,47 @@
+.App-header {
+  /*background-color: #DCDCDC;*/
+  background-color: #CCCCFF;
+  height: 50px;
+  color: white;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.verticalCenter{
+  position: relative;
+  top: 50%;
+  transform: translate(-10px, -50%);
+  -webkit-transform: translate(-10px, -50%);
+}
+
+.clsLabel{
+	margin-right: 3px;
+	margin-left: 8px;
+	font-family: 'Oxygen', sans-serif;
+	color: grey;
+}
+
+.clsInputLogin{
+    margin-right: 5px;
+    margin-left: 3px;
+    color: black;
+}
+
+.formLogin{
+	margin-right: 20px;
+}
+
+.labelUsername{
+  margin-right: 20px; 
+}
+
+.clsLinkNewUser:hover{
+/*  color: red;*/
+  cursor:pointer; cursor: hand
+}

@@ -1,0 +1,44 @@
+.clsNav{
+	position: relative;
+	width: 100%;
+  margin:0;
+  margin-top: 5px;
+}
+
+.clsButton{
+  /*background:#DCDCDC;*/
+  background:#CCCCFF;
+  flex-basis:48%;
+  display:inline-block;
+  line-height:2;
+  text-decoration:none;
+  padding:5px;
+  text-align:center;
+  font-size:20px;
+  color:black;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  position: relative;
+  
+ }
+
+.clsButton:hover{
+    text-decoration:none;
+    background:#DCDCDC; /*CCCCCC*/
+    color:black;
+}
+
+.active{
+  background-color: #DCDCDC;
+}
+
+.clsButton1{
+  width: 100%;
+}
+.clsButton3{
+ width: 33.33%; 
+}
+.clsButton4{
+  width: 25%;
+}
