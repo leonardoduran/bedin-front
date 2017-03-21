@@ -7,7 +7,6 @@ import './styles/RegistryUser.css';
 // import UserStates from '../models/listed';
 import store from '../store';
 // var Link = require('react-router').Link;
-import hospitals from '../data/hospitals';
 
 export const API_URL ='http://127.0.0.1:3001/';
 

@@ -13,3 +13,6 @@ export const PATIENTS_REQUEST	:string='PATIENTS_REQUEST';
 
 export const UNOFFER_BEDS		:string='UNOFFER_BEDS';
 export const LOAD_ROOMS			:string='LOAD_ROOMS';
+
+export const ADDING_PATIENT_REQUEST		:string='ADDING_PATIENT_REQUEST';
+export const PATIENT_REQUEST_END		:string='PATIENT_REQUEST_END';

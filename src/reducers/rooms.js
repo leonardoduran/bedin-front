@@ -1,5 +1,5 @@
 import * as AppActions from '../actions/actions';
-import * as RoomStates from '../models/listed';
+// import * as RoomStates from '../models/listed';
 
 function rooms(state = {}, action){
 	switch(action.type){

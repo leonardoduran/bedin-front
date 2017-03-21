@@ -1,0 +1,10 @@
+.ancho100{
+	width: 100%;
+}
+
+.inlineblock{
+	display: inline-block;
+	width: 50%;
+	margin-right: 10px;
+	margin-left: 10px;
+}

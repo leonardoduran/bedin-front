@@ -4,7 +4,6 @@ import * as UserStates from '../models/listed';
 function user(state = {}, action){
 	switch(action.type){
 		case AppActions.LOGIN_USER:
-			console.log(action.user)
 			return Object.assign({},state,{
 				userState:UserStates.LOGGED, 
 				username:action.user.username, 
@@ -17,6 +16,8 @@ function user(state = {}, action){
 			return Object.assign({},state,{
 				userState:UserStates.UNLOGGED, 
 				username:"", hospitalName:"",
+				hospitalName:'',
+				hospitalId:'',				
 				userRol: "",
 				isRegistering:false
 			});

@@ -2,11 +2,11 @@ var React = require('react');
 import ReactDataGrid from 'react-data-grid';
 import store from '../store';
 import UserStates from '../models/listed';
-const API_URL ='http://127.0.0.1:3001/';
+// const API_URL ='http://127.0.0.1:3001/';
 
 module.exports = React.createClass ({
     getInitialState() {
-		let userState = store.getState().user.userState;
+		// let userState = store.getState().user.userState;
 		var originalRows = [];
         var rows = [];
 		this._columns = [
@@ -63,7 +63,7 @@ module.exports = React.createClass ({
 		       	<h2> Camas disponibles </h2>
 				<ReactDataGrid
 					onGridSort={this.handleGridSort}
-		    		columns  ={this._columns}
+		    		columns={this._columns}
 		    		rowGetter={this.rowGetter}
 		    		rowsCount={this.state.rows.length}
 		    		minHeight={300}

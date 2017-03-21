@@ -8,7 +8,8 @@ import {connect} from 'react-redux';
 function mapStateToProps(state){
 	return {
 		user: state.user,
-		rooms: state.rooms
+		rooms: state.rooms,
+		patient: state.patient
 	}
 }
 // reducerApp: state.reducerApp

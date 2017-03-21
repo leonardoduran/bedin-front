@@ -1,11 +1,11 @@
 var React = require('react');
-import hospitals from '../data/hospitals';
+// import hospitals from '../data/hospitals';
 import rooms from '../data/rooms';
 import stateRooms from '../data/statesRoom';
 
 import ReactDataGrid from 'react-data-grid';
 import '../components/styles/OfferBeds.css';
-import Offer from './Offer';
+// import Offer from './Offer';
 import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
@@ -143,11 +143,11 @@ module.exports = React.createClass ({
 		       	<h2> Camas por sala</h2>
 				<ReactDataGrid
 					onGridSort={this.handleGridSort}
-		    		columns  ={this._columns}
+		    		columns={this._columns}
 		    		rowGetter={this.rowGetter}
 		    		rowsCount={this.state.rows.length}
 		    		minHeight={300}
-		            onRowClick= {this.fcClick}
+		            onRowClick={this.fcClick}
 		    	/>
 			</div>
 			)
