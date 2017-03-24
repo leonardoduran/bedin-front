@@ -2,7 +2,8 @@ var React = require('react');
 import ReactDataGrid from 'react-data-grid';
 import store from '../store';
 import UserStates from '../models/listed';
-const API_URL ='http://127.0.0.1:3001/';
+import * as config from '../config/config';
+import '../components/styles/PatientsRequest.css';
 
 module.exports = React.createClass ({
     
@@ -12,7 +13,7 @@ module.exports = React.createClass ({
 		// 	console.log(this.rowGetter(index)["_id"])
 		// }
 
-		return fetch(`${API_URL}patient/prueba`, { 
+		return fetch(`${config.API_URL}patient/prueba`, { 
     	  method: 'GET',
     	})
       	.then(function(response) {
@@ -24,9 +25,9 @@ module.exports = React.createClass ({
 	},
 	componentDidMount:function(){
     var _this = this;
-	// return fetch(`${API_URL}patient/allRequest`, {  (trae todos los request sin filtro por hospital)
+	// return fetch(`${config.API_URL}patient/allRequest`, {  //(trae todos los request sin filtro por hospital)
 	const hospitalID = store.getState().user.hospitalId;
-	return fetch(`${API_URL}patient/allRequest/${hospitalID}`, { 
+	return fetch(`${config.API_URL}patient/allRequest/${hospitalID}`, { 
     	  method: 'GET',
     	})
       	.then(function(response) {
@@ -96,7 +97,7 @@ module.exports = React.createClass ({
 		if (userState === UserStates.LOGGED){
 			return(
 			<div>
-		       	<h2> Solicitudes de pacientes </h2>
+				<h2>Solicitudes de pacientes</h2>
 				<ReactDataGrid
 					onGridSort={this.handleGridSort}
 		    		columns={this._columns}
@@ -116,3 +117,10 @@ module.exports = React.createClass ({
 		}
 	}
 })
+
+				// <form className="form-inline">
+				//   	<div className="form-group">
+				//     	<label className="input-group font-h2"> Solicitudes de pacientes </label>
+				//     	<div className="input-group clsRigth"><button>Nueva solicitud</button></div>
+				//     </div>
+				// </form>

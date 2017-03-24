@@ -10,6 +10,9 @@ import Offer from './containers/Offer';
 import ShowBeds from './containers/ShowBeds';
 import RegistryUser from './components/RegistryUser';
 import AddPatientRequest from './containers/AddPatientRequest';
+import AddHospital from './containers/AddHospital';
+import AddHealthCare from './containers/AddHealthCare';
+import AddHealthCarePlan from './containers/AddHealthCarePlan';
 
 import './index.css';
 
@@ -31,6 +34,9 @@ const router = (
 				<Route path='ShowBeds' component={ShowBeds} />
 				<Route path='RegistryUser' component={RegistryUser} />
 				<Route path='AddPatientRequest' component={AddPatientRequest} />
+				<Route path='AddHospital' component={AddHospital} />
+				<Route path='AddHealthCare' component={AddHealthCare} />
+				<Route path='AddHealthCarePlan' component={AddHealthCarePlan} />
 			</Route>
 		</Router>
 	</Provider>

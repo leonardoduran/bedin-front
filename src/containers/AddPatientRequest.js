@@ -3,8 +3,8 @@ import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
 import '../components/styles/AddPatientRequest.css';
+import * as config from '../config/config';
 
-const API_URL ='http://127.0.0.1:3001/';
 
 module.exports = React.createClass ({
 	
@@ -17,37 +17,37 @@ module.exports = React.createClass ({
 		let priority=this.refs.priority.value;
 		let origin=this.refs.originType.value;
 		let hospitalID=this.refs.hospital.value;
-		if(patient==''){
+		if(patient===''){
 			alert('Paciente no ingresado')
 			this.refs.patient.focus();
 			return false;
 		}
-		if(healthCare==''){
+		if(healthCare===''){
 			alert('Obra social no ingresada')
 			this.refs.healthCare.focus();
 			return false;
 		}
-		if(healthCarePlan==''){
+		if(healthCarePlan===''){
 			alert('Plan no ingresado')
 			this.refs.healthCarePlan.focus();
 			return false;
 		}
-		if(pathology==''){
+		if(pathology===''){
 			alert('Patología no ingresada')
 			this.refs.pathology.focus();
 			return false;
 		}
-		if(priority==''){
+		if(priority===''){
 			alert('Prioridad no ingresada')
 			this.refs.priority.focus();
 			return false;
 		}
-		if(origin==''){
+		if(origin===''){
 			alert('Origen no ingresado')
 			this.refs.origin.focus();
 			return false;
 		}
-		if(hospitalID==''){
+		if(hospitalID===''){
 			alert('Hospital no ingresado')
 			this.refs.hospitalID.focus();
 			return false;
@@ -111,7 +111,7 @@ module.exports = React.createClass ({
 
 		var getPlans = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${API_URL}healthCarePlans`, { 
+			fetch(`${config.API_URL}healthCarePlans`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -128,7 +128,7 @@ module.exports = React.createClass ({
 
 		var getHealthCares = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${API_URL}healthCare`, { 
+			fetch(`${config.API_URL}healthCare`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -145,7 +145,7 @@ module.exports = React.createClass ({
 
 		var getHospitals = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${API_URL}hospitals`, { 
+			fetch(`${config.API_URL}hospitals`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -177,7 +177,7 @@ module.exports = React.createClass ({
 		// Si tengo guardado en el State los planes, cuando los vuelva a buscar,
 		// se deberia renderizar automaticamente el combo
 		var _this=this;
-		return fetch(`${API_URL}patient/formadd/${this.refs.healthCare.value}`, { 
+		return fetch(`${config.API_URL}patient/formadd/${this.refs.healthCare.value}`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -185,7 +185,8 @@ module.exports = React.createClass ({
 	      	})
 	      	.then(function(result) {
 	          _this.setState({
-	            healthCarePlan: result[0].plans
+	            healthCarePlan: result[0].plans,
+	            hospitals: result[0].hospitals
 	          });
 			});
 	},
@@ -248,29 +249,21 @@ module.exports = React.createClass ({
 						</div>
 					</div>
 
+				<label className="control-label left-15">Obra social</label>
+				<form className="form-inline">
+					
+						<div className="form-group">
+							<div className="input-group">
+								<span className="input-group-addon"></span>
+								<select ref="healthCare" onChange={this.fcChangeOS}>{optionsHealthCare}</select>
+							</div>
 
-					<div className="ancho100">
-						<div className="form-group inlineblock">
-							<label className="cols-sm-2 control-label">Obra social</label>
-							<div className="cols-sm-10">
-								<div className="input-group">
-									<span className="input-group-addon"></span>
-									<select ref="healthCare" onChange={this.fcChangeOS}>{optionsHealthCare}</select>
-								</div>
+							<div className="input-group">
+								<span className="input-group-addon"></span>
+								<select ref="healthCarePlan">{optionsHealthCarePlan}</select>
 							</div>
 						</div>
-
-						<div className="form-group inlineblock">
-							<label className="cols-sm-2 control-label">Plan</label>
-							<div className="cols-sm-10">
-								<div className="input-group">
-									<span className="input-group-addon"></span>
-									<select ref="healthCarePlan">{optionsHealthCarePlan}</select>
-								</div>
-							</div>
-						</div>
-					</div>
-
+				</form>
 
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Hospital</label>

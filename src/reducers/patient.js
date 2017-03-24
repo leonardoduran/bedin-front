@@ -1,5 +1,4 @@
 import * as AppActions from '../actions/actions';
-import * as UserStates from '../models/listed';
 
 function patient(state = {}, action){
 	switch(action.type){

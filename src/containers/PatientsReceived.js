@@ -2,7 +2,6 @@ var React = require('react');
 import ReactDataGrid from 'react-data-grid';
 import store from '../store';
 import UserStates from '../models/listed';
-// const API_URL ='http://127.0.0.1:3001/';
 
 module.exports = React.createClass ({
     getInitialState() {

@@ -7,8 +7,7 @@ import './styles/RegistryUser.css';
 // import UserStates from '../models/listed';
 import store from '../store';
 // var Link = require('react-router').Link;
-
-export const API_URL ='http://127.0.0.1:3001/';
+import * as config from '../config/config';
 
 module.exports = React.createClass ({
 	validarCampos:function(){
@@ -63,8 +62,8 @@ module.exports = React.createClass ({
 	componentDidMount:function(){
 
     var _this = this;
-
-    return fetch(`${API_URL}hospitals`, { 
+console.log(config)
+    return fetch(`${config.API_URL}hospitals`, { 
         method: 'GET',
     })
       .then(function(response) {

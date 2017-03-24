@@ -2,9 +2,8 @@ import * as AppActions from './actions';
 import User from '../models/user';
 import fetch from 'isomorphic-fetch';
 import * as Errors from '../models/errorMessages';
-
-export const API_URL ='http://127.0.0.1:3001/';
-
+import * as config from '../config/config';
+// export const API_URL ='http://127.0.0.1:3001/';
 
 export function isRegistering() {
   // Está ejecutando el proceso de registro (tiempo de demora de la rta del servidor)
@@ -32,7 +31,7 @@ export function registryNoOK(data) {
 export function registeringUser(user: User) {
   return (dispatch) => {
     dispatch(isRegistering());
-    return fetch(`${API_URL}register`, { 
+    return fetch(`${config.API_URL}register`, { 
         method: 'POST',
 		    headers: {
 		  'Accept': 'application/json',
@@ -97,7 +96,7 @@ export function isLoginUser() {
 export function loginUser(user: User) {
   return (dispatch) => {
     dispatch(isLoginUser());
-    return fetch(`${API_URL}users/login`, { 
+    return fetch(`${config.API_URL}users/login`, { 
         method: 'POST',
         headers: {
       'Accept': 'application/json',
@@ -137,7 +136,7 @@ export function logoutUserOK(){
 export function logoutUser(user: User) {
   return (dispatch) => {
     dispatch(isLogoutUser());
-    return fetch(`${API_URL}users/logout`, { 
+    return fetch(`${config.API_URL}users/logout`, { 
         method: 'GET',
     })
       .then(function(response) {
@@ -156,13 +155,6 @@ export function registryUser() {
   }
 
 }
-
-export function patientsRequest() {
-  return {
-    type: AppActions.PATIENTS_RECEIVED
-  }
-}
-
 
 export function offerBeds(qty) {
   return {
@@ -208,40 +200,139 @@ export function loadRoomsOK(data){
 //   }
 // }
 
-export function isAddingRequestPatient() {
-  return {
-    type: AppActions.ADDING_PATIENT_REQUEST
-  }
-}
-export function requestPatientEnd() {
-  return {
-    type: AppActions.PATIENT_REQUEST_END
-  }
-}
 
-export function addingPatient(requestPatient) {
+export function isUpdatingDB() {
+  return {
+    type: AppActions.UPDATED_DB
+  }
+};
+
+export function isUpdatingDBEnd() {
+  return {
+    type: AppActions.UPDATED_DB_END
+  }
+};
+
+export function addingHospital(hospital) {
   return (dispatch) => {
-    dispatch(isAddingRequestPatient());
-    return fetch(`${API_URL}patient/addRequest`, { 
+    dispatch(isUpdatingDB());
+    return fetch(`${config.API_URL}hospitals/new`, { 
         method: 'POST',
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },        
       body: JSON.stringify({
-        requestPatient
+        hospital
       })
     })
       .then(function(response) {
         return response.json()
       })
       .then(function(body) {
-        dispatch(requestPatientEnd())
+        alert("Hospital agregado!")
+        dispatch(isUpdatingDBEnd())
       })
       .catch(function(error){
         console.log("Error", error)
-        dispatch(requestPatientEnd())
+        dispatch(isUpdatingDBEnd())
       })
   }
 };
 
+export function addingPlan(plan) {
+  return (dispatch) => {
+    dispatch(isUpdatingDB());
+    return fetch(`${config.API_URL}hospitals/newPlan`, { 
+        method: 'POST',
+        headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },        
+      body: JSON.stringify({
+        plan
+      })
+    })
+      .then(function(response) {
+        return response.json()
+      })
+      .then(function(body) {
+        dispatch(isUpdatingDBEnd())
+        alert("Plan agregado!")
+      })
+      .catch(function(error){
+        console.log("Error", error)
+        dispatch(isUpdatingDBEnd())
+      })
+  }
+};
+
+export function addingHealthCare(healthCare) {
+  return (dispatch) => {
+    dispatch(isUpdatingDB());
+    return fetch(`${config.API_URL}hospitals/newHealthCare`, { 
+        method: 'POST',
+        headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },        
+      body: JSON.stringify({
+        healthCare
+      })
+    })
+      .then(function(response) {
+        return response.json()
+      })
+      .then(function(body) {
+        dispatch(isUpdatingDBEnd())
+        alert("Obra social agregada!")
+      })
+      .catch(function(error){
+        console.log("Error", error)
+        dispatch(isUpdatingDBEnd())
+      })
+  }
+};
+
+// export function patientsRequest() {
+//   return {
+//     type: AppActions.PATIENTS_RECEIVED
+//   }
+// }
+
+// export function isAddingRequestPatient() {
+//   return {
+//     type: AppActions.ADDING_PATIENT_REQUEST
+//   }
+// }
+// export function requestPatientEnd() {
+//   return {
+//     type: AppActions.PATIENT_REQUEST_END
+//   }
+// }
+
+// export function addingPatient(requestPatient) {
+//   return (dispatch) => {
+//     dispatch(isAddingRequestPatient());
+//     return fetch(`${config.API_URL}patient/addRequest`, { 
+//         method: 'POST',
+//         headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     },        
+//       body: JSON.stringify({
+//         requestPatient
+//       })
+//     })
+//       .then(function(response) {
+//         return response.json()
+//       })
+//       .then(function(body) {
+//         dispatch(requestPatientEnd())
+//       })
+//       .catch(function(error){
+//         console.log("Error", error)
+//         dispatch(requestPatientEnd())
+//       })
+//   }
+// };

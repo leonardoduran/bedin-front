@@ -49,6 +49,7 @@ module.exports = React.createClass ({
      },
 	render: function(){
 		let userState = store.getState().user.userState;
+		let userRol = store.getState().user.userRol;
 		if (userState !== UserStates.LOGGED){
 			return(
 				<div className="App-header">
@@ -70,7 +71,7 @@ module.exports = React.createClass ({
 				<div className="App-header">
 					<div className="verticalCenter right">
 						<label className="labelUsername">Usuario: {this.props.user.username}</label>
-						<label className="labelUsername">Institucion: {this.props.user.hospitalName}</label>
+						{userRol!=='admin' ? <label className="labelUsername">Institucion: {this.props.user.hospitalName}</label> : null}
 						<Button bsSize="small" onClick={this.fcCerrarSesion}>Cerrar sesión</Button>
 					</div>
 				</div>

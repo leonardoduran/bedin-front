@@ -15,7 +15,7 @@ function user(state = {}, action){
 		case AppActions.LOGOUT_USER:
 			return Object.assign({},state,{
 				userState:UserStates.UNLOGGED, 
-				username:"", hospitalName:"",
+				username:"",
 				hospitalName:'',
 				hospitalId:'',				
 				userRol: "",

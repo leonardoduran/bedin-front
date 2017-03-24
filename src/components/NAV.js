@@ -27,7 +27,10 @@ module.exports = React.createClass ({
       else
     return (
       <div className="clsNav">
-          <IndexLink  className="clsButton clsButton1"  activeClassName="active" to="/AddPatientRequest"> Agregar Paciente </IndexLink>
+          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddPatientRequest"> Generar solicitud </IndexLink>
+          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHospital"> Agregar Hospital </IndexLink>
+          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHealthCarePlan"> Agregar Plan </IndexLink>
+          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHealthCare"> Agregar Obra Social </IndexLink>
       </div>
       )
     

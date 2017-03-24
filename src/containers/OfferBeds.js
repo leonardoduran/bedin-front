@@ -9,7 +9,7 @@ import '../components/styles/OfferBeds.css';
 import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
-export const API_URL ='http://127.0.0.1:3001/';
+import * as config from '../config/config';
 
 module.exports = React.createClass ({
 
@@ -38,7 +38,7 @@ module.exports = React.createClass ({
 	getDefaultProps_() {
 		console.log("default props")
 	    var self = this;
-		fetch(`${API_URL}rooms`, { 
+		fetch(`${config.API_URL}rooms`, { 
 		    method: 'GET',
 		    })
 		    .then(function(response) {
