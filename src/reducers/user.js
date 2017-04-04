@@ -6,6 +6,7 @@ function user(state = {}, action){
 		case AppActions.LOGIN_USER:
 			return Object.assign({},state,{
 				userState:UserStates.LOGGED, 
+				userId: action.user._id,
 				username:action.user.username, 
 				hospitalName:action.hospitalName,
 				hospitalId:action.user.hospitalCode,
@@ -15,6 +16,7 @@ function user(state = {}, action){
 		case AppActions.LOGOUT_USER:
 			return Object.assign({},state,{
 				userState:UserStates.UNLOGGED, 
+				userId: '',
 				username:"",
 				hospitalName:'',
 				hospitalId:'',				

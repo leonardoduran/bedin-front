@@ -1,5 +1,6 @@
 export class User {
 	name: String;
+	userId: String;
 	username: String;
 	password: String;
 	hospitalCode: Number;
@@ -8,6 +9,7 @@ export class User {
 
 	constructor(obj){
 		this.name=obj.name;
+		this.userId= obj.userId;
 		this.username=obj.username;
 		this.hospitalCode=obj.hospitalCode;
 		this.password=obj.password;

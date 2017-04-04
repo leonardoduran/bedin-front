@@ -112,8 +112,6 @@ export function loginUser(user: User) {
       })
       .then(function(body) {
         if(!body.error)
-          // dispatch(getDataRooms())
-          // dispatch(getDataStateRooms())
           dispatch(loginUserOK(body.user,body.hospital))
         else
           dispatch(loginUserNoOK())

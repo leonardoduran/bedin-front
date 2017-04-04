@@ -65,16 +65,32 @@ module.exports = React.createClass ({
 		let priority=this.refs.priority.value;
 		let origin=this.refs.originType.value;
 		let hospitalID=this.refs.hospital.value;
-
-		let request= {
-			patient,
-			healthCare,
-			healthCarePlan,
-			pathology,
-			priority,
-			origin,
-			hospitalID
+		let hospitalChecked=this.refs.selectHospital.checked
+		let request=''
+		if(hospitalChecked)
+		{		
+			request= {
+					patient,
+					healthCare,
+					healthCarePlan,
+					pathology,
+					priority,
+					origin,
+					hospitalID
+				}
 		}
+		else
+		{
+			request= {
+					patient,
+					healthCare,
+					healthCarePlan,
+					pathology,
+					priority,
+					origin
+				}			
+		}
+
 		this.props.addingPatient(request); // action
 		this.refs.patient.value=''
 		this.refs.healthCare.value=''
@@ -160,22 +176,24 @@ module.exports = React.createClass ({
 		   return promise;
 		};
 
-
 		Promise.all([getPlans(), getHealthCares(),getHospitals()])
-		.then(function(resultado){
-			console.log("PASO!")
-			console.log(resultado); //un arreglo con los valores pasamos a resolve en cada metodo
+		.then( result => {
+			console.log(result); //un arreglo con los valores pasamos a resolve en cada metodo
 		})
-		.catch( function(err){
+		.catch(error => {
 			console.log("ERROR!")
-			console.warn(err); //mostramos el error por consola. Veremos que es el que falló primero, o sea el del primer metodo
-		});   
+			console.warn(error); //mostramos el error por consola. Veremos que es el que falló primero, o sea el del primer metodo
+		});
+
 	},
 
 	fcChangeOS: function(e){
-		// console.log(this.refs.healthCare.value)
-		// Si tengo guardado en el State los planes, cuando los vuelva a buscar,
-		// se deberia renderizar automaticamente el combo
+
+		// if(!this.refs.healthCare.value) {
+		// 	this.refs.healthCarePlan.value=''
+		// 	return
+		// }
+		// console.log("Refs", this.refs.healthCare)
 		var _this=this;
 		return fetch(`${config.API_URL}patient/formadd/${this.refs.healthCare.value}`, { 
 	        method: 'GET',
@@ -190,9 +208,12 @@ module.exports = React.createClass ({
 	          });
 			});
 	},
-
+	fcChangeSelectHospital:function(e){
+		this.refs.hospital.disabled=!this.refs.selectHospital.checked
+	},
 
 	render: function(){	
+		let valueDefault='';
 		let optionsHealthCare=[];
 		let optionsHealthCarePlan=[];
 		let optionsPriority=[];
@@ -213,17 +234,19 @@ module.exports = React.createClass ({
 	        };
 
     	if(this.state.healthCarePlan.length>0)
+	    	// optionsHealthCarePlan.push(<option key={0}></option>)
 	    	for (let i = 0; i < this.state.healthCarePlan.length; i++) {
 	            let option = this.state.healthCarePlan[i];        
 	        	optionsHealthCarePlan.push(
-	                <option key={i} value={option._id}>{option.name}</option>)
+	                <option key={i+1} value={option._id}>{option.name}</option>)
 	        };
     	
     	if(this.state.healthCare.length>0)
+	    	// optionsHealthCare.push(<option key={0}></option>)
 	    	for (let i = 0; i < this.state.healthCare.length; i++) {
-	            let option = this.state.healthCare[i];        
+	            let option = this.state.healthCare[i];
 	        	optionsHealthCare.push(
-	                <option key={i} value={option._id}>{option.name}</option>)
+	        	 <option key={i+1} value={option._id}>{option.name}</option>)
 	        };
 
     	if(this.state.hospitals.length>0)
@@ -232,7 +255,6 @@ module.exports = React.createClass ({
 	        	optionsHospital.push(
 	                <option key={i} value={option._id}>{option.name}</option>)
 	        };	        
-
 		let userState = store.getState().user.userState;
 		if (userState === UserStates.LOGGED){
 			return(
@@ -269,6 +291,7 @@ module.exports = React.createClass ({
 						<label className="cols-sm-2 control-label">Hospital</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
+								<input type="checkbox" onChange={this.fcChangeSelectHospital} ref="selectHospital" defaultChecked="true" />
 								<span className="input-group-addon"></span>
 								<select ref="hospital">{optionsHospital}</select>
 							</div>

@@ -5,29 +5,54 @@ import UserStates from '../models/listed';
 import * as config from '../config/config';
 import '../components/styles/PatientsRequest.css';
 
+const {
+    Formatters
+} = require('react-data-grid-addons');
+
 module.exports = React.createClass ({
     
 	fcClickRequest:function(index){
-		// if(index>=0){ // No presiono el Header de la grilla
-		// 	console.log(index)
-		// 	console.log(this.rowGetter(index)["_id"])
-		// }
+		if(index>=0){ // No presiono el Header de la grilla
+			// console.log(index)
+			// console.log(this.rowGetter(index)["_id"])
+		
+            var retVal = confirm("Confirma la aceptacion del paciente ?");
+            if( retVal ){
+				const hospitalID = store.getState().user.hospitalId;
+				const userID = store.getState().user.userId;
+				return fetch(`${config.API_URL}patient/confirm/${this.rowGetter(index)["_id"]}/${hospitalID}/${userID}`, { 
+    	  			method: 'PUT',
+    				})
+      				.then(function(response) {
+        			return response.json()
+      				})
+      				.then(function(result) {
+      				})                  
+                // return true;
+               }
+               else{
+                  console.log("Cancel")
+                  return false;
+               }			
 
-		return fetch(`${config.API_URL}patient/prueba`, { 
-    	  method: 'GET',
-    	})
-      	.then(function(response) {
-        	return response.json()
-      	})
-      	.then(function(result) {
-      		console.log(result)
-      })
+		}
+
+		// return fetch(`${config.API_URL}patient/prueba`, { 
+  //   	  method: 'GET',
+  //   	})
+  //     	.then(function(response) {
+  //       	return response.json()
+  //     	})
+  //     	.then(function(result) {
+  //     		console.log(result)
+  //     })
+
 	},
 	componentDidMount:function(){
     var _this = this;
 	// return fetch(`${config.API_URL}patient/allRequest`, {  //(trae todos los request sin filtro por hospital)
 	const hospitalID = store.getState().user.hospitalId;
-	return fetch(`${config.API_URL}patient/allRequest/${hospitalID}`, { 
+	return fetch(`${config.API_URL}patient/allRequestGen/${hospitalID}`, { 
     	  method: 'GET',
     	})
       	.then(function(response) {
@@ -43,8 +68,12 @@ module.exports = React.createClass ({
 			a[i].healthCare=a[i].healthCare.name;
 			a[i].healthCarePlan=a[i].healthCarePlan.name;
 			a[i].inputDate=aDate +" - "+ aHour;
-			a[i].priority=a[i].priority===1 ? 'Alta' : (a[i].priority===2 ? 'Media' : 'Baja');
 			a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Paciente';
+			// a[i].priority=a[i].priority===1 ? 'Alta' : (a[i].priority===2 ? 'Media' : 'Baja');
+			a[i].priority=a[i].priority===1 ? "image1Red.jpg" : (a[i].priority===2 ? "image2Yellow.jpg" : "image3Green.jpg");
+
+			// <img src="LogoBedIn.jpg" alt="logo" className="mainImage"/>
+			
 		}
           _this.setState({
             originalRows:a,
@@ -56,16 +85,32 @@ module.exports = React.createClass ({
     getInitialState() {
 		var originalRows = [];
         var rows = [];
-		this._columns = [
-			{key: "_id", name:"ID",width:205},
+        const {
+    		ImageFormatter
+		} = Formatters;
+		this._columns = [			
+			{key: "priority", name:'', formatter: ImageFormatter, width:60, sortable:true}, //, sortable:true
 			{key: "patient", name:"PACIENTE",resizable:true, sortable:true},
 			{key: "healthCare", name:"OBRA SOCIAL", sortable:true},
 			{key: "healthCarePlan", name:"PLAN", sortable:true},
 			{key: "pathology", name:"PATOLOGIA",resizable:true,sortable:true},
 			{key: "inputDate", name:"FECHA INGRESO", sortable:true,width:150},
-			{key: "priority", name:"PRIORIDAD", sortable:true},
 			{key: "origin", name:"TIPO ORIGEN", sortable:true},
+			
 			// {key: "originName", name:"REALIZADO POR", sortable:true},
+			{key: "_id", name:"ID",width:210},
+// {
+//                     key: 'avartar',
+//                     name: 'Avartar',
+//                     width: 60,
+//                     formatter: ImageFormatter,
+//                     resizable: true,
+//                     headerRenderer: < ImageFormatter value = {
+//                         faker.image.cats()
+//                     }
+//                     />
+//                 }
+
 		];
 
         return {
@@ -103,6 +148,7 @@ module.exports = React.createClass ({
 		    		columns={this._columns}
 		    		rowGetter={this.rowGetter}
 		    		rowsCount={this.state.rows.length}
+		    		rowHeight={50}
 		    		minHeight={400}
 		    		onRowClick={this.fcClickRequest}
 		    	/>
@@ -117,10 +163,3 @@ module.exports = React.createClass ({
 		}
 	}
 })
-
-				// <form className="form-inline">
-				//   	<div className="form-group">
-				//     	<label className="input-group font-h2"> Solicitudes de pacientes </label>
-				//     	<div className="input-group clsRigth"><button>Nueva solicitud</button></div>
-				//     </div>
-				// </form>
