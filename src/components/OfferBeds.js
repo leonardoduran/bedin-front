@@ -4,7 +4,7 @@ import rooms from '../data/rooms';
 import stateRooms from '../data/statesRoom';
 
 import ReactDataGrid from 'react-data-grid';
-import '../components/styles/OfferBeds.css';
+import './styles/OfferBeds.css';
 // import Offer from './Offer';
 import { browserHistory } from 'react-router';
 import store from '../store';

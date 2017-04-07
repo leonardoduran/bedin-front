@@ -1,5 +1,5 @@
 var React = require('react');
-import MainImage from '../components/MainImage';
+import MainImage from './MainImage';
 // import GeneralFooter from '../components/GeneralFooter';
 // import Content from './Content';
 // import NAV from '../components/NAV';

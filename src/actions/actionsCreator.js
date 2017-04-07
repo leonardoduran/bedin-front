@@ -101,7 +101,8 @@ export function loginUser(user: User) {
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },        
+    }, 
+    // credentials: "same-origin",    
       body: JSON.stringify({
         username: user.username,
         password: user.password

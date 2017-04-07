@@ -2,7 +2,7 @@ var React = require('react');
 import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
-import '../components/styles/AddPatientRequest.css';
+import './styles/AddPatientRequest.css';
 import * as config from '../config/config';
 
 

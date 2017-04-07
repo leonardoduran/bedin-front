@@ -18,7 +18,7 @@ module.exports = React.createClass ({
     if (userRol === 'user')
     return (
       <div className="clsNav">
-          <IndexLink  className="clsButton clsButton2"  activeClassName="active" to="/PatientsRequest"> Solicitud pendientes </IndexLink>
+          <IndexLink  className="clsButton clsButton2"  activeClassName="active" to="/PatientsRequest"> Solicitudes pendientes </IndexLink>
           <Link  className="clsButton clsButton2"  activeClassName="active" to="/PatientsReceived"> Pacientes aceptados </Link>
       </div>
       )

@@ -2,7 +2,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 import store from '../store';
 import UserStates from '../models/listed';
-import '../components/styles/Offer.css';
+import './styles/Offer.css';
 
 module.exports = React.createClass ({
 	fcOfferBeds: function(){

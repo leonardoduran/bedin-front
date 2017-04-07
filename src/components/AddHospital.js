@@ -2,7 +2,7 @@ var React = require('react');
 import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
-import '../components/styles/AddHospital.css';
+import './styles/AddHospital.css';
 import Loading from '../components/loading';
 
 module.exports = React.createClass ({

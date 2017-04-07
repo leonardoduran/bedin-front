@@ -3,7 +3,7 @@ import ReactDataGrid from 'react-data-grid';
 import store from '../store';
 import UserStates from '../models/listed';
 import * as config from '../config/config';
-import '../components/styles/PatientsRequest.css';
+import './styles/PatientsRequest.css';
 
 const {
     Formatters
@@ -32,22 +32,10 @@ module.exports = React.createClass ({
                 // return true;
                }
                else{
-                  console.log("Cancel")
                   return false;
                }			
 
 		}
-
-		// return fetch(`${config.API_URL}patient/prueba`, { 
-  //   	  method: 'GET',
-  //   	})
-  //     	.then(function(response) {
-  //       	return response.json()
-  //     	})
-  //     	.then(function(result) {
-  //     		console.log(result)
-  //     })
-
 	},
 	componentDidMount:function(){
     var _this = this;
@@ -82,6 +70,10 @@ module.exports = React.createClass ({
           });
       })
 	},
+	
+	fcUdpateRequest : function(){
+		this.componentDidMount();
+	},
 
     getInitialState() {
 		var originalRows = [];
@@ -97,21 +89,7 @@ module.exports = React.createClass ({
 			{key: "pathology", name:"PATOLOGIA",resizable:true,sortable:true},
 			{key: "inputDate", name:"FECHA INGRESO", sortable:true,width:150},
 			{key: "origin", name:"TIPO ORIGEN", sortable:true},
-			
-			// {key: "originName", name:"REALIZADO POR", sortable:true},
 			{key: "_id", name:"ID",width:210},
-// {
-//                     key: 'avartar',
-//                     name: 'Avartar',
-//                     width: 60,
-//                     formatter: ImageFormatter,
-//                     resizable: true,
-//                     headerRenderer: < ImageFormatter value = {
-//                         faker.image.cats()
-//                     }
-//                     />
-//                 }
-
 		];
 
         return {
@@ -153,6 +131,7 @@ module.exports = React.createClass ({
 		    		minHeight={400}
 		    		onRowClick={this.fcClickRequest}
 		    	/>
+		    	<button type="button" className="btn btn-primary" onClick={this.fcUdpateRequest}>Actualizar</button>
 			</div>
 			)
 		}

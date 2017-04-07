@@ -1,22 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './components/App';
-import MainContainer from './containers/MainContainer';
+import MainContainer from './components/MainContainer';
 
-import PatientsRequest from './containers/PatientsRequest';
-import PatientsReceived from './containers/PatientsReceived';
-import OfferBeds from './containers/OfferBeds';
-import Offer from './containers/Offer';
-import ShowBeds from './containers/ShowBeds';
+import PatientsRequest from './components/PatientsRequest';
+import PatientsReceived from './components/PatientsReceived';
+import OfferBeds from './components/OfferBeds';
+import Offer from './components/Offer';
+import ShowBeds from './components/ShowBeds';
 import RegistryUser from './components/RegistryUser';
-import AddPatientRequest from './containers/AddPatientRequest';
-import AddHospital from './containers/AddHospital';
-import AddHealthCare from './containers/AddHealthCare';
-import AddHealthCarePlan from './containers/AddHealthCarePlan';
+import AddPatientRequest from './components/AddPatientRequest';
+import AddHospital from './components/AddHospital';
+import AddHealthCare from './components/AddHealthCare';
+import AddHealthCarePlan from './components/AddHealthCarePlan';
 
 import './index.css';
 
-// import react router
 import {Router, Route, IndexRoute} from 'react-router';
 import {Provider} from 'react-redux';
 import store, {history} from './store';
@@ -43,5 +42,3 @@ const router = (
 )
 
 render(router , document.getElementById('root'));
-
-// <Route path='RegistryUser' component={RegistryUser} />

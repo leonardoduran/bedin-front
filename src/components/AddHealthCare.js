@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import store from '../store';
 import UserStates from '../models/listed';
 import * as config from '../config/config';
-import '../components/styles/AddHealthCare.css';
+import './styles/AddHealthCare.css';
 
 module.exports = React.createClass ({
 	

@@ -4,22 +4,22 @@ import * as UserStates from '../models/listed';
 function user(state = {}, action){
 	switch(action.type){
 		case AppActions.LOGIN_USER:
-			console.log("LOGIN OK")
 			return Object.assign({},state,{
 				userState:UserStates.LOGGED, 
 				userId: action.user._id,
 				username:action.user.username, 
+				name:action.user.name, 
 				hospitalName:action.hospitalName,
 				hospitalId:action.user.hospitalCode,
 				userRol: action.user.rol
 			});
 
 		case AppActions.LOGOUT_USER:
-		console.log("LOGOUT")
 			return Object.assign({},state,{
 				userState:UserStates.UNLOGGED, 
 				userId: '',
 				username:"",
+				name: "",
 				hospitalName:'',
 				hospitalId:'',				
 				userRol: "",

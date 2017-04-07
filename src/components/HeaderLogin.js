@@ -70,7 +70,7 @@ module.exports = React.createClass ({
 			return(
 				<div className="App-header">
 					<div className="verticalCenter right">
-						<label className="labelUsername">Usuario: {this.props.user.username}</label>
+						<label className="labelUsername">Usuario: {this.props.user.name}</label>
 						{userRol!=='admin' ? <label className="labelUsername">Institucion: {this.props.user.hospitalName}</label> : null}
 						<Button bsSize="small" onClick={this.fcCerrarSesion}>Cerrar sesión</Button>
 					</div>

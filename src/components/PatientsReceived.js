@@ -39,7 +39,7 @@ module.exports = React.createClass ({
 			a[i].healthCarePlan=a[i].healthCarePlan.name;
 			a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Paciente';
 			if(a[i].responseUser)
-				a[i].responseAccept=a[i].responseUser.username;
+				a[i].responseAccept=a[i].responseUser.name;
 			else
 				a[i].responseAccept='UNDEFINED'
 		}
