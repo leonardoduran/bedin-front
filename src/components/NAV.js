@@ -18,10 +18,8 @@ module.exports = React.createClass ({
     if (userRol === 'user')
     return (
       <div className="clsNav">
-          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/PatientsRequest"> Solicitud pacientes </IndexLink>
-          <Link  className="clsButton clsButton4"  activeClassName="active" to="/OfferBeds"> Ofertar camas </Link>
-          <Link  className="clsButton clsButton4"  activeClassName="active" to="/ShowBeds"> Ver camas disponibles </Link>
-          <Link  className="clsButton clsButton4"  activeClassName="active" to="/PatientsReceived"> Pacientes recibidos </Link>
+          <IndexLink  className="clsButton clsButton2"  activeClassName="active" to="/PatientsRequest"> Solicitud pendientes </IndexLink>
+          <Link  className="clsButton clsButton2"  activeClassName="active" to="/PatientsReceived"> Pacientes aceptados </Link>
       </div>
       )
       else
@@ -39,5 +37,5 @@ module.exports = React.createClass ({
   }
 })
 
-// <Link  onClick={this.props.patientsRequest.bind(null)} className="clsButton"  activeClassName="active"> Solicitud pacientes </Link>
-// <Link  className="clsButton"  activeClassName="active" to="/PatientsRequest"> Solicitud pacientes </Link>
+          // <Link  className="clsButton clsButton4"  activeClassName="active" to="/OfferBeds"> Ofertar camas </Link>
+          // <Link  className="clsButton clsButton4"  activeClassName="active" to="/ShowBeds"> Ver camas disponibles </Link>

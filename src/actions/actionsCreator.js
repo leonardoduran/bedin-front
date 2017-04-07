@@ -114,7 +114,10 @@ export function loginUser(user: User) {
         if(!body.error)
           dispatch(loginUserOK(body.user,body.hospital))
         else
-          dispatch(loginUserNoOK())
+          {
+            alert(body.msj);
+            dispatch(loginUserNoOK())
+          }
       })
   }
 }

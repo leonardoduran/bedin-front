@@ -15,8 +15,8 @@ module.exports = React.createClass ({
 		if(index>=0){ // No presiono el Header de la grilla
 			// console.log(index)
 			// console.log(this.rowGetter(index)["_id"])
-		
-            var retVal = confirm("Confirma la aceptacion del paciente ?");
+			var that=this;
+            var retVal = confirm(`Confirma la aceptacion del paciente ${this.rowGetter(index)["patient"]}?`);
             if( retVal ){
 				const hospitalID = store.getState().user.hospitalId;
 				const userID = store.getState().user.userId;
@@ -27,6 +27,7 @@ module.exports = React.createClass ({
         			return response.json()
       				})
       				.then(function(result) {
+      					that.componentDidMount()
       				})                  
                 // return true;
                }
@@ -89,7 +90,7 @@ module.exports = React.createClass ({
     		ImageFormatter
 		} = Formatters;
 		this._columns = [			
-			{key: "priority", name:'', formatter: ImageFormatter, width:60, sortable:true}, //, sortable:true
+			{key: "priority", name:'PRIO.', formatter: ImageFormatter, width:60, sortable:true}, //, sortable:true
 			{key: "patient", name:"PACIENTE",resizable:true, sortable:true},
 			{key: "healthCare", name:"OBRA SOCIAL", sortable:true},
 			{key: "healthCarePlan", name:"PLAN", sortable:true},
