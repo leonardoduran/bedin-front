@@ -97,7 +97,7 @@ module.exports = React.createClass ({
 
 		var getPlans = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${config.API_URL}healthCarePlans`, { 
+			fetch(`${config.API_URL}hospitals/healthCarePlans`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {

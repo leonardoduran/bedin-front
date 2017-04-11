@@ -127,7 +127,7 @@ module.exports = React.createClass ({
 
 		var getPlans = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${config.API_URL}healthCarePlans`, { 
+			fetch(`${config.API_URL}hospitals/healthCarePlans`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -138,13 +138,16 @@ module.exports = React.createClass ({
 	            healthCarePlan: result
 	          });
 	      })
+	      	.catch(function(error){
+	      		console.log("Error", error)
+	      	})
 		   });
 		   return promise;
 		};
 
 		var getHealthCares = function() {
 		   var promise = new Promise(function(resolve, reject){
-			fetch(`${config.API_URL}healthCare`, { 
+			fetch(`${config.API_URL}hospitals/healthCare`, { 
 	        method: 'GET',
 	    	})	
 	      	.then(function(response) {
@@ -155,6 +158,9 @@ module.exports = React.createClass ({
 	            healthCare: result
 	          });
 	      })
+	      	.catch(function(error){
+	      	  console.log("Error", error)
+	      	})
 		   });
 		   return promise;
 		};

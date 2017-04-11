@@ -33,7 +33,6 @@ module.exports = React.createClass ({
 		let name=this.refs.name.value;
 		let userName=this.refs.userName.value;
 		let hospitalCode = this.refs.hospital.value;
-		console.log(hospitalCode)
 		let password=this.refs.password.value;
 		let password2=this.refs.password2.value;			
 		let user= {
@@ -62,7 +61,6 @@ module.exports = React.createClass ({
 	componentDidMount:function(){
 
     var _this = this;
-console.log(config)
     return fetch(`${config.API_URL}hospitals`, { 
         method: 'GET',
     })

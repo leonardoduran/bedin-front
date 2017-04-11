@@ -31,7 +31,7 @@ export function registryNoOK(data) {
 export function registeringUser(user: User) {
   return (dispatch) => {
     dispatch(isRegistering());
-    return fetch(`${config.API_URL}register`, { 
+    return fetch(`${config.API_URL}users/register`, { 
         method: 'POST',
 		    headers: {
 		  'Accept': 'application/json',
@@ -57,9 +57,9 @@ export function registeringUser(user: User) {
               return alert(body.msj);
           }
       })
-      .catch(function(error){
-        console.log("Error", error)
-      })
+      // .catch(function(error){
+      //   console.log("Error", error)
+      // })
   }
 };
 
@@ -93,6 +93,10 @@ export function isLoginUser() {
   }
 }
 
+  // let body= JSON.stringify({username, pwd});
+  // let headers= new Headers({'Content-Type':'application/json'});
+  // let options = new RequestOptions({headers: headers,withCredentials: true});
+
 export function loginUser(user: User) {
   return (dispatch) => {
     dispatch(isLoginUser());
@@ -102,7 +106,7 @@ export function loginUser(user: User) {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }, 
-    // credentials: "same-origin",    
+      credentials: "same-origin",    
       body: JSON.stringify({
         username: user.username,
         password: user.password
@@ -119,6 +123,9 @@ export function loginUser(user: User) {
             alert(body.msj);
             dispatch(loginUserNoOK())
           }
+      })
+      .catch(function(error) {  
+        console.log('Request failed', error) 
       })
   }
 }
