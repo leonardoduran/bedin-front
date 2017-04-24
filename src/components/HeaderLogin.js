@@ -37,7 +37,7 @@ module.exports = React.createClass ({
 	},
 	fcCerrarSesion: function(){
 		this.props.logoutUser()
-		browserHistory.push('/');
+		browserHistory.push('/#/');
 	},
 	fcNewUser:function(){
 		console.log("New User")
@@ -60,8 +60,7 @@ module.exports = React.createClass ({
 							<i className="glyphicon glyphicon-lock"></i>
 							<input onKeyPress={this.fcPressPass} type="password" className="clsInputLogin" ref="userPassword" placeholder="Contraseña"></input>
 							<Button bsSize="small" onClick={this.fcIniciarSesion}>Iniciar sesión</Button>
-						</span>
-						<Link   to="/RegistryUser"> Nuevo usuario </Link>
+						</span>						
 					</div>
 				</div>
 			)
@@ -72,6 +71,7 @@ module.exports = React.createClass ({
 					<div className="verticalCenter right">
 						<label className="labelUsername">Usuario: {this.props.user.name}</label>
 						{userRol!=='admin' ? <label className="labelUsername">Institucion: {this.props.user.hospitalName}</label> : null}
+						{userRol==='admin' ? <Link   to="/RegistryUser"> Nuevo usuario </Link> : null}						
 						<Button bsSize="small" onClick={this.fcCerrarSesion}>Cerrar sesión</Button>
 					</div>
 				</div>

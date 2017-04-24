@@ -121,7 +121,7 @@ module.exports = React.createClass ({
 
 	    _this.setState({
 	        priority  :[{id:1, name:'Alta'},{id:2, name:'Media'},{id:3, name:'Baja'}],
-	        originType:[{key:'A', name:'Ambulancia'},{key:'P',name:'Paciente'}]
+	        originType:[{key:'A', name:'Ambulancia'},{key:'P',name:'Derivación'}]
 	    });
 
 
@@ -129,6 +129,7 @@ module.exports = React.createClass ({
 		   var promise = new Promise(function(resolve, reject){
 			fetch(`${config.API_URL}hospitals/healthCarePlans`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()
@@ -149,6 +150,7 @@ module.exports = React.createClass ({
 		   var promise = new Promise(function(resolve, reject){
 			fetch(`${config.API_URL}hospitals/healthCare`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()
@@ -169,6 +171,7 @@ module.exports = React.createClass ({
 		   var promise = new Promise(function(resolve, reject){
 			fetch(`${config.API_URL}hospitals`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()
@@ -203,6 +206,7 @@ module.exports = React.createClass ({
 		var _this=this;
 		return fetch(`${config.API_URL}patient/formadd/${this.refs.healthCare.value}`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()

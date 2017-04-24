@@ -99,6 +99,7 @@ module.exports = React.createClass ({
 		   var promise = new Promise(function(resolve, reject){
 			fetch(`${config.API_URL}hospitals/healthCarePlans`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()
@@ -116,6 +117,7 @@ module.exports = React.createClass ({
 		   var promise = new Promise(function(resolve, reject){
 			fetch(`${config.API_URL}hospitals`, { 
 	        method: 'GET',
+	        credentials: 'include',
 	    	})	
 	      	.then(function(response) {
 	        	return response.json()

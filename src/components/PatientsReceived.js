@@ -12,6 +12,7 @@ module.exports = React.createClass ({
 	const hospitalID = store.getState().user.hospitalId;
 	return fetch(`${config.API_URL}patient/allRequestAccept/${hospitalID}`, { 
     	  method: 'GET',
+    	  credentials: 'include',
     	})
       	.then(function(response) {
         	return response.json()
@@ -37,7 +38,7 @@ module.exports = React.createClass ({
 			}
 			a[i].healthCare=a[i].healthCare.name;
 			a[i].healthCarePlan=a[i].healthCarePlan.name;
-			a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Paciente';
+			a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Derivación';
 			if(a[i].responseUser)
 				a[i].responseAccept=a[i].responseUser.name;
 			else
@@ -61,6 +62,7 @@ module.exports = React.createClass ({
 			{key: "inputDate", name:"FECHA INGRESO", sortable:true},
 			{key: "responseDate", name:"FECHA RESPUESTA", sortable:true},
 			{key: "responseAccept", name:"ACEPTACION", sortable:true},
+			{key: "pathology", name:"PATOLOGIA", sortable:true},
 			{key: "origin", name:"TIPO ORIGEN", sortable:true},
 		];
         return {

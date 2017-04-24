@@ -106,7 +106,7 @@ export function loginUser(user: User) {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }, 
-      credentials: "same-origin",    
+      credentials: 'include',
       body: JSON.stringify({
         username: user.username,
         password: user.password
@@ -147,6 +147,7 @@ export function logoutUser(user: User) {
     dispatch(isLogoutUser());
     return fetch(`${config.API_URL}users/logout`, { 
         method: 'GET',
+        credentials: 'include',
     })
       .then(function(response) {
         return response.json()
@@ -230,7 +231,8 @@ export function addingHospital(hospital) {
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },        
+    },
+      credentials: 'include',
       body: JSON.stringify({
         hospital
       })
@@ -257,7 +259,8 @@ export function addingPlan(plan) {
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },        
+    },
+      credentials: 'include',
       body: JSON.stringify({
         plan
       })
@@ -284,7 +287,8 @@ export function addingHealthCare(healthCare) {
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },        
+    },
+      credentials: 'include',
       body: JSON.stringify({
         healthCare
       })

@@ -27,7 +27,8 @@ export function addingPatient(requestPatient) {
         headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },        
+    },
+      credentials: 'include',
       body: JSON.stringify({
         requestPatient
       })

@@ -19,10 +19,22 @@ import './index.css';
 import {Router, Route, IndexRoute} from 'react-router';
 import {Provider} from 'react-redux';
 import store, {history} from './store';
+var hashHistory = require('react-router').hashHistory 
+var browserHistory = require('react-router').browserHistory
+
+// var Router = require('react-router'). Router,
+//     Route = require('react-router').Router,
+//     hashHistory = require('react-router').hashHistory 
+
+// ReactDOM.render((
+//   <Router history={hashHistory}>
+//     <Route path="/" component={App}/>
+//   </Router>
+// ), document.getElementById('app'))
 
 const router = (
 	<Provider store={store}> 
-		<Router history={history}>
+		<Router history={browserHistory}>
 			<Route path='/' component={App}> 
 				
 				<IndexRoute component={MainContainer}></IndexRoute>

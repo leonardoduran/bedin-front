@@ -63,6 +63,7 @@ module.exports = React.createClass ({
     var _this = this;
     return fetch(`${config.API_URL}hospitals`, { 
         method: 'GET',
+        credentials: 'include',
     })
       .then(function(response) {
         return response.json()

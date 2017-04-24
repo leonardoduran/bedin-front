@@ -4,6 +4,9 @@ import store from '../store';
 import UserStates from '../models/listed';
 import * as config from '../config/config';
 import './styles/PatientsRequest.css';
+var vex = require('vex-js')
+vex.registerPlugin(require('vex-dialog'))
+vex.defaultOptions.className = 'vex-theme-default'
 
 const {
     Formatters
@@ -16,12 +19,25 @@ module.exports = React.createClass ({
 			// console.log(index)
 			// console.log(this.rowGetter(index)["_id"])
 			var that=this;
+
+// vex.dialog.confirm({
+//     message: 'Are you absolutely sure you want to destroy the alien planet?',
+//     className: 'vex-theme-wireframe',
+//     callback: function (value) {
+//         if (value) {
+//             console.log('Successfully destroyed the planet.')
+//         } else {
+//             console.log('Chicken.')
+//         }
+//     }
+// })
             var retVal = confirm(`Confirma la aceptacion del paciente ${this.rowGetter(index)["patient"]}?`);
             if( retVal ){
 				const hospitalID = store.getState().user.hospitalId;
 				const userID = store.getState().user.userId;
 				return fetch(`${config.API_URL}patient/confirm/${this.rowGetter(index)["_id"]}/${hospitalID}/${userID}`, { 
     	  			method: 'PUT',
+    	  			credentials: 'include',
     				})
       				.then(function(response) {
         			return response.json()
@@ -37,38 +53,44 @@ module.exports = React.createClass ({
 
 		}
 	},
+	
 	componentDidMount:function(){
-    var _this = this;
-	// return fetch(`${config.API_URL}patient/allRequest`, {  //(trae todos los request sin filtro por hospital)
-	const hospitalID = store.getState().user.hospitalId;
-	return fetch(`${config.API_URL}patient/allRequestGen/${hospitalID}`, { 
-    	  method: 'GET',
-    	})
-      	.then(function(response) {
-        	return response.json()
-      	})
-      	.then(function(result) {
-		let a=result;
-		for (let i=0; i<a.length;i++){
-			let aDate=a[i].inputDate;
-			let aHour=aDate.substring(aDate.indexOf('T')+1,aDate.indexOf('T')+6);
-			aDate=aDate.substring(0,aDate.indexOf('T'));
-			aDate=aDate.substring(8,10)+"/"+aDate.substring(5,7)+"/"+aDate.substring(0,4);
-			a[i].healthCare=a[i].healthCare.name;
-			a[i].healthCarePlan=a[i].healthCarePlan.name;
-			a[i].inputDate=aDate +" - "+ aHour;
-			a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Paciente';
-			// a[i].priority=a[i].priority===1 ? 'Alta' : (a[i].priority===2 ? 'Media' : 'Baja');
-			a[i].priority=a[i].priority===1 ? "image1Red.jpg" : (a[i].priority===2 ? "image2Yellow.jpg" : "image3Green.jpg");
+	const userState = store.getState().user.userState;
+// console.log("Estado didmount:", userState)
+	if (userState === UserStates.LOGGED){
+	    var _this = this;
+		// return fetch(`${config.API_URL}patient/allRequest`, {  //(trae todos los request sin filtro por hospital)
+		const hospitalID = store.getState().user.hospitalId;
+		return fetch(`${config.API_URL}patient/allRequestGen/${hospitalID}`, { 
+	    	  method: 'GET',
+	    	  credentials: 'include',
+	    	})
+	      	.then(function(response) {
+	        	return response.json()
+	      	})
+	      	.then(function(result) {
+			let a=result;
+			for (let i=0; i<a.length;i++){
+				let aDate=a[i].inputDate;
+				let aHour=aDate.substring(aDate.indexOf('T')+1,aDate.indexOf('T')+6);
+				aDate=aDate.substring(0,aDate.indexOf('T'));
+				aDate=aDate.substring(8,10)+"/"+aDate.substring(5,7)+"/"+aDate.substring(0,4);
+				a[i].healthCare=a[i].healthCare.name;
+				a[i].healthCarePlan=a[i].healthCarePlan.name;
+				a[i].inputDate=aDate +" - "+ aHour;
+				a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Derivación';
+				// a[i].priority=a[i].priority===1 ? 'Alta' : (a[i].priority===2 ? 'Media' : 'Baja');
+				a[i].priority=a[i].priority===1 ? "image1Red.jpg" : (a[i].priority===2 ? "image2Yellow.jpg" : "image3Green.jpg");
 
-			// <img src="LogoBedIn.jpg" alt="logo" className="mainImage"/>
-			
+				// <img src="LogoBedIn.jpg" alt="logo" className="mainImage"/>
+				
+			}
+	          _this.setState({
+	            originalRows:a,
+	            rows: a
+	          });
+	      })
 		}
-          _this.setState({
-            originalRows:a,
-            rows: a
-          });
-      })
 	},
 	
 	fcUdpateRequest : function(){

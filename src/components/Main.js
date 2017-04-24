@@ -10,6 +10,14 @@ import UserStates from '../models/listed';
 import store from '../store';
 
 module.exports = React.createClass ({
+	
+	// componentWillReceiveProps(nextProps) {
+	// console.log("Ejecuto", nextProps.children)
+	//     this.setState({
+	//         children: nextProps.children
+	//     });
+	// },
+
 	render: function(){
 		let userState = store.getState().user.userState;
 		if (userState === UserStates.IS_LOGGEDIN || userState === UserStates.IS_UNLOGGEDIN){
@@ -20,7 +28,7 @@ module.exports = React.createClass ({
 					<div className="container main-center">
                     	<Loading />
                 	</div>
-					<GeneralFooter />
+
 				</div>
 			)
 		}
@@ -31,7 +39,7 @@ module.exports = React.createClass ({
 				<div className="container">
                     {React.cloneElement(this.props.children, this.props)}
                 </div>
-	   			<GeneralFooter />
+
 
 			</div>
 		)

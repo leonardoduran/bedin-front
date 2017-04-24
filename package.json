@@ -15,7 +15,9 @@
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "vex-dialog": "^1.0.7",
+    "vex-js": "^3.1.1"
   },
   "devDependencies": {
     "react-scripts": "0.9.3"
