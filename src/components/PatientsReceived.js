@@ -5,6 +5,73 @@ import UserStates from '../models/listed';
 import * as config from '../config/config';
 
 module.exports = React.createClass ({
+	getHour:function(aDate,aHour,gtm){
+		let aH=parseInt(aHour.substring(0,2),10)
+		let aM=aHour.substring(3,5)
+		let aDateD=aDate.substring(8,10)
+		let aDateM=aDate.substring(5,7)
+		let aDateY=aDate.substring(0,4)
+
+		aH+=gtm;
+		if(aH<0){
+			aH+=24;
+			aDateD-=1;
+			if(aDateD===0){
+				aDateM-=1;
+				if(aDateM===0){
+					aDateY-=1;
+					aDateM=12;
+				}
+				switch(aDateM){
+					case 1:
+						aDateD=31;
+						break;
+					case 2:
+						if((aDateY%4===0 && !(aDateY%100===0)) || (aDateY%400===0))
+							aDateD=29;
+						else
+							aDateD=28;
+						break;		
+					case 3:
+						aDateD=31;
+						break;		
+					case 4:
+						aDateD=30;
+						break;		
+					case 5:
+						aDateD=31;
+						break;		
+					case 6:
+						aDateD=30;
+						break;		
+					case 7:
+						aDateD=31;
+						break;		
+					case 8:
+						aDateD=31;
+						break;		
+					case 9:	
+						aDateD=30;
+						break;
+					case 10:
+						aDateD=31;
+						break;		
+					case 11:
+						aDateD=30;
+						break;		
+					case 12:
+						aDateD=31;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		if(aH<10)
+			aH="0"+aH;
+		let aDateF=aDateD+"/"+aDateM+"/"+aDateY;
+		return aDateF +" - "+ aH+":"+aM;
+	},
 
 	componentDidMount:function(){
     var _this = this;
@@ -23,15 +90,20 @@ module.exports = React.createClass ({
 			let aInputDate=a[i].inputDate;
 			let aInputHour=aInputDate.substring(aInputDate.indexOf('T')+1,aInputDate.indexOf('T')+6);
 			aInputDate=aInputDate.substring(0,aInputDate.indexOf('T'));
-			aInputDate=aInputDate.substring(8,10)+"/"+aInputDate.substring(5,7)+"/"+aInputDate.substring(0,4);
-			a[i].inputDate=aInputDate +" - "+ aInputHour;
+			// aInputDate=aInputDate.substring(8,10)+"/"+aInputDate.substring(5,7)+"/"+aInputDate.substring(0,4);
+			aInputDate=aInputDate.substring(0,4)+"/"+aInputDate.substring(5,7)+"/"+aInputDate.substring(8,10);
+			// a[i].inputDate=aInputDate +" - "+ aInputHour;
+			a[i].inputDate=_this.getHour(aInputDate,aInputHour,-3)
 			
+
 			let aRespDate=a[i].responseDate;
 			if (aRespDate){
 				let aRespHour=aRespDate.substring(aRespDate.indexOf('T')+1,aRespDate.indexOf('T')+6);
 				aRespDate=aRespDate.substring(0,aRespDate.indexOf('T'));
-				aRespDate=aRespDate.substring(8,10)+"/"+aRespDate.substring(5,7)+"/"+aRespDate.substring(0,4);
-				a[i].responseDate=aRespDate +" - "+ aRespHour;
+				// aRespDate=aRespDate.substring(8,10)+"/"+aRespDate.substring(5,7)+"/"+aRespDate.substring(0,4);
+				aRespDate=aRespDate.substring(0,4)+"/"+aRespDate.substring(5,7)+"/"+aRespDate.substring(8,10);
+				// a[i].responseDate=aRespDate +" - "+ aRespHour;
+				a[i].responseDate=_this.getHour(aRespDate,aRespHour,-3);
 			}
 			else{
 				a[i].responseDate="UNDEFINED"

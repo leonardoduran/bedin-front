@@ -54,6 +54,73 @@ module.exports = React.createClass ({
 		}
 	},
 	
+	getHour:function(aDate,aHour,gtm){
+		let aH=parseInt(aHour.substring(0,2),10)
+		let aM=aHour.substring(3,5)
+		let aDateD=aDate.substring(8,10)
+		let aDateM=aDate.substring(5,7)
+		let aDateY=aDate.substring(0,4)
+
+		aH+=gtm;
+		if(aH<0){
+			aH+=24;
+			aDateD-=1;
+			if(aDateD===0){
+				aDateM-=1;
+				if(aDateM===0){
+					aDateY-=1;
+					aDateM=12;
+				}
+				switch(aDateM){
+					case 1:
+						aDateD=31;
+						break;
+					case 2:
+						if((aDateY%4===0 && !(aDateY%100===0)) || (aDateY%400===0))
+							aDateD=29;
+						else
+							aDateD=28;
+						break;		
+					case 3:
+						aDateD=31;
+						break;		
+					case 4:
+						aDateD=30;
+						break;		
+					case 5:
+						aDateD=31;
+						break;		
+					case 6:
+						aDateD=30;
+						break;		
+					case 7:
+						aDateD=31;
+						break;		
+					case 8:
+						aDateD=31;
+						break;		
+					case 9:	
+						aDateD=30;
+						break;
+					case 10:
+						aDateD=31;
+						break;		
+					case 11:
+						aDateD=30;
+						break;		
+					case 12:
+						aDateD=31;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		if(aH<10)
+			aH="0"+aH;		
+		let aDateF=aDateD+"/"+aDateM+"/"+aDateY;
+		return aDateF +" - "+ aH+":"+aM;
+	},
 	componentDidMount:function(){
 	const userState = store.getState().user.userState;
 // console.log("Estado didmount:", userState)
@@ -70,18 +137,30 @@ module.exports = React.createClass ({
 	      	})
 	      	.then(function(result) {
 			let a=result;
+
+// console.log('2017-05-01 - 01:23' + _this.getHour('2017-05-01','01:23',-3))
+// console.log('2018-01-01 - 01:23' + _this.getHour('2018-01-01','01:23',-3))
+// console.log('2016-03-01 - 01:23' + _this.getHour('2016-03-01','01:23',-3))
+// console.log('2017-03-01 - 01:23' + _this.getHour('2017-03-01','01:23',-3))
+
 			for (let i=0; i<a.length;i++){
 				let aDate=a[i].inputDate;
 				let aHour=aDate.substring(aDate.indexOf('T')+1,aDate.indexOf('T')+6);
 				aDate=aDate.substring(0,aDate.indexOf('T'));
-				aDate=aDate.substring(8,10)+"/"+aDate.substring(5,7)+"/"+aDate.substring(0,4);
+
+				let aDateHourFormat=_this.getHour(aDate,aHour,-3)
+
+				// aDate=aDate.substring(8,10)+"/"+aDate.substring(5,7)+"/"+aDate.substring(0,4);
+				// aDate=aDateD+"/"+aDateM+"/"+aDateY
 				a[i].healthCare=a[i].healthCare.name;
 				a[i].healthCarePlan=a[i].healthCarePlan.name;
-				a[i].inputDate=aDate +" - "+ aHour;
+				// a[i].inputDate=aDate +" - "+ aHour;
+				// a[i].inputDate=aDate +" - "+ aH+":"+aM;
+				a[i].inputDate=aDateHourFormat;
 				a[i].origin=a[i].origin==='A' ? 'Ambulancia' : 'Derivación';
 				// a[i].priority=a[i].priority===1 ? 'Alta' : (a[i].priority===2 ? 'Media' : 'Baja');
 				a[i].priority=a[i].priority===1 ? "image1Red.jpg" : (a[i].priority===2 ? "image2Yellow.jpg" : "image3Green.jpg");
-
+				a[i].age=a[i].age || 'S/E';
 				// <img src="LogoBedIn.jpg" alt="logo" className="mainImage"/>
 				
 			}
@@ -106,6 +185,7 @@ module.exports = React.createClass ({
 		this._columns = [			
 			{key: "priority", name:'PRIO.', formatter: ImageFormatter, width:60, sortable:true}, //, sortable:true
 			{key: "patient", name:"PACIENTE",resizable:true, sortable:true},
+			{key: "age", name:"EDAD", sortable:true},
 			{key: "healthCare", name:"OBRA SOCIAL", sortable:true},
 			{key: "healthCarePlan", name:"PLAN", sortable:true},
 			{key: "pathology", name:"PATOLOGIA",resizable:true,sortable:true},
@@ -113,7 +193,7 @@ module.exports = React.createClass ({
 			{key: "origin", name:"TIPO ORIGEN", sortable:true},
 			{key: "_id", name:"ID",width:210},
 		];
-
+		setInterval(this.fcUdpateRequest,5000);
         return {
             originalRows,
             rows

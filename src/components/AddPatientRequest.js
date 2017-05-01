@@ -11,6 +11,7 @@ module.exports = React.createClass ({
 	validarCampos: function(){
 		
 		let patient=this.refs.patient.value;
+		let age=this.refs.age.value;
 		let healthCare=this.refs.healthCare.value;
 		let healthCarePlan=this.refs.healthCarePlan.value;
 		let pathology=this.refs.pathology.value;
@@ -21,6 +22,11 @@ module.exports = React.createClass ({
 			alert('Paciente no ingresado')
 			this.refs.patient.focus();
 			return false;
+		}
+		if(age<0){
+			alert('La edad debe ser mayor a 0')
+			this.refs.age.focus();
+			return false;			
 		}
 		if(healthCare===''){
 			alert('Obra social no ingresada')
@@ -59,6 +65,7 @@ module.exports = React.createClass ({
 		if(!this.validarCampos()) return;
 		
 		let patient=this.refs.patient.value;
+		let age=this.refs.age.value;
 		let healthCare=this.refs.healthCare.value;
 		let healthCarePlan=this.refs.healthCarePlan.value;
 		let pathology=this.refs.pathology.value;
@@ -67,10 +74,12 @@ module.exports = React.createClass ({
 		let hospitalID=this.refs.hospital.value;
 		let hospitalChecked=this.refs.selectHospital.checked
 		let request=''
+
 		if(hospitalChecked)
 		{		
 			request= {
 					patient,
+					age,
 					healthCare,
 					healthCarePlan,
 					pathology,
@@ -83,6 +92,7 @@ module.exports = React.createClass ({
 		{
 			request= {
 					patient,
+					age,
 					healthCare,
 					healthCarePlan,
 					pathology,
@@ -93,6 +103,7 @@ module.exports = React.createClass ({
 
 		this.props.addingPatient(request); // action
 		this.refs.patient.value=''
+		this.refs.age.value=''
 		this.refs.healthCare.value=''
 		this.refs.healthCarePlan.value=''
 		this.refs.hospital.value=''
@@ -277,6 +288,16 @@ module.exports = React.createClass ({
 							<div className="input-group">
 								<span className="input-group-addon"></span>
 								<input ref="patient" type="text" required className="form-control" placeholder="Nombre paciente"/>
+							</div>
+						</div>
+					</div>
+
+					<div className="form-group">
+						<label className="cols-sm-2 control-label">Edad (años)</label>
+						<div className="cols-sm-10">
+							<div className="input-group">
+								<span className="input-group-addon"></span>
+								<input ref="age" type="number" required className="form-control" placeholder="Edad paciente"/>
 							</div>
 						</div>
 					</div>
