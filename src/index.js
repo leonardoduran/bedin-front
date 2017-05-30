@@ -18,8 +18,11 @@ import './index.css';
 
 import {Router, Route, IndexRoute} from 'react-router';
 import {Provider} from 'react-redux';
-import store, {history} from './store';
-var hashHistory = require('react-router').hashHistory 
+import store from './store';
+
+import {saveState} from './localStorage';
+// , {history}
+// var hashHistory = require('react-router').hashHistory 
 var browserHistory = require('react-router').browserHistory
 
 // var Router = require('react-router'). Router,
@@ -31,6 +34,10 @@ var browserHistory = require('react-router').browserHistory
 //     <Route path="/" component={App}/>
 //   </Router>
 // ), document.getElementById('app'))
+
+store.subscribe(() =>{
+	saveState(store.getState());
+})
 
 const router = (
 	<Provider store={store}> 

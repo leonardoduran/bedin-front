@@ -1,5 +1,8 @@
 import * as AppActions from '../actions/actions';
 
+
+
+
 function patient(state = {}, action){
 	switch(action.type){
 		case AppActions.ADDING_PATIENT_REQUEST:

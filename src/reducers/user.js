@@ -3,6 +3,7 @@ import * as UserStates from '../models/listed';
 
 function user(state = {}, action){
 	switch(action.type){
+		
 		case AppActions.LOGIN_USER:
 			return Object.assign({},state,{
 				userState:UserStates.LOGGED, 

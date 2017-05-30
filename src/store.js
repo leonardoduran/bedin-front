@@ -1,3 +1,4 @@
+// import {persistStore, autoRehydrate} from 'redux-persist';
 import {createStore, compose,applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 import { browserHistory} from 'react-router';
@@ -5,16 +6,13 @@ import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from './reducers/index';
 
-// import user from './data/user';
+import {loadState} from './localStorage';
 
-// Crea objetos con datos default
-const defaultState = {
-	// user
-}
+let persistedState=loadState();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, defaultState, composeEnhancers(
-    applyMiddleware(thunkMiddleware // lets us dispatch() functions
+const store = createStore(rootReducer, persistedState, composeEnhancers(
+    applyMiddleware(thunkMiddleware 
     )));
 
 export const history = syncHistoryWithStore(browserHistory, store);

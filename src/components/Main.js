@@ -2,7 +2,7 @@ var React = require('react');
 import './styles/Main.css';
 
 import HeaderLogin from './HeaderLogin';
-import GeneralFooter from './GeneralFooter';
+// import GeneralFooter from './GeneralFooter';
 // import Content from '../containers/Content';
 import Loading from './loading';
 import NAV from './NAV';

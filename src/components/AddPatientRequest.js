@@ -234,7 +234,7 @@ module.exports = React.createClass ({
 	},
 
 	render: function(){	
-		let valueDefault='';
+		// let valueDefault='';
 		let optionsHealthCare=[];
 		let optionsHealthCarePlan=[];
 		let optionsPriority=[];
