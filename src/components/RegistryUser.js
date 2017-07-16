@@ -55,7 +55,8 @@ module.exports = React.createClass ({
 
   getInitialState: function() {
     return {
-      hospitals: []
+      hospitals: [],
+      os:[]
     }
   },	
 	componentDidMount:function(){
@@ -70,10 +71,43 @@ module.exports = React.createClass ({
       })
       .then(function(result) {
           _this.setState({
-            hospitals: result
+            hospitals: result,
+            hospitals1: result,
+            os:[{_id:123, name:'Galeno'},{_id:456,name:'OSDE'}]
           });
       })
+
+    // return fetch(`${config.API_URL}os`, { 
+    //     method: 'GET',
+    //     credentials: 'include',
+    // })
+    //   .then(function(response) {
+    //     return response.json()
+    //   })
+    //   .then(function(result) {
+    //       _this.setState({
+    //         os: result
+    //       });
+    //   })      
+	
 	},
+
+	setGender(event) {
+    	let selectedOption;
+    	selectedOption=event.target.value;
+    	if(selectedOption==='P'){
+    		// this.state.hospitals=this.state.hospitals;
+			this.setState({
+	            hospitals: this.state.hospitals1
+	        });    		
+    	}else{
+    		// this.state.hospitals=this.state.os;
+			this.setState({
+	            hospitals: this.state.os
+	        });    		
+    	}
+ 	},
+
 	render: function(){
 		let optionsHospital=[];
 		// hospitals: tengo que traerlos del API mediante un request
@@ -95,6 +129,7 @@ module.exports = React.createClass ({
 						<button type="button" className="btn btn-primary login-button" onClick={this.fcCancelRegistry}>Cancelar</button>
 					</div>
 		}
+
 		return(
 		<div>
 
@@ -119,6 +154,16 @@ module.exports = React.createClass ({
 							</div>
 						</div>
 					</div>
+
+				    <div className="form-group" onChange={this.setGender.bind(this)}>
+						<label className="cols-sm-2 control-label">Rol</label>
+						<div className="cols-sm-10">
+							<div className="input-group">
+				    			<input type="radio" value="P" name="rolType"/> Prestador
+				        		<input type="radio" value="F" name="rolType"/> Financiador
+				        	</div>
+				        </div>
+				    </div>
 
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Institución</label>

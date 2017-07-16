@@ -223,6 +223,8 @@ module.exports = React.createClass ({
 	        	return response.json()
 	      	})
 	      	.then(function(result) {
+
+console.log(result[0].plans)
 	          _this.setState({
 	            healthCarePlan: result[0].plans,
 	            hospitals: result[0].hospitals

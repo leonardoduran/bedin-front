@@ -77,6 +77,63 @@ module.exports = React.createClass ({
 
 	},
 
+	fcAddHospital:function(){
+		// console.log(this.refs.hospital.options[this.refs.hospital.selectedIndex].value);
+		// console.log(this.refs.hospital.options[this.refs.hospital.selectedIndex].text);
+		let existeHospitalEnPlan;
+		existeHospitalEnPlan=false;
+		for(let i=0;i<this.state.hospitalsByPlan.length;i++){
+			// Busco el plan seleccionado para ver si ya lo empezo a editar
+			if(this.state.hospitalsByPlan[i].planId===this.refs.plan.options[this.refs.plan.selectedIndex].value){
+				
+				for(let j=0;j<this.state.hospitalsByPlan[i].hospitals.length;j++){
+					if(this.state.hospitalsByPlan[i].hospitals[j].hospitalId===this.refs.hospital.options[this.refs.hospital.selectedIndex].value){
+						existeHospitalEnPlan=true;
+						break;
+					}
+				}
+				if(!existeHospitalEnPlan)
+				{		
+					this.state.hospitalsByPlan[i].hospitals.push(
+					{
+						hospitalId:this.refs.hospital.options[this.refs.hospital.selectedIndex].value,
+						hospitalName:this.refs.hospital.options[this.refs.hospital.selectedIndex].text
+					}
+					)
+				}
+
+				break;
+			}
+		}
+
+console.log(this.state.hospitalsByPlan)
+	},
+
+
+	fcAddPlan:function(){
+		// console.log(this.refs.hospital.options[this.refs.hospital.selectedIndex].value);
+		// console.log(this.refs.hospital.options[this.refs.hospital.selectedIndex].text);
+		let existePlan;
+		existePlan=false;
+		for(let i=0;i<this.state.hospitalsByPlan.length;i++){
+			if(this.state.hospitalsByPlan[i].planId===this.refs.plan.options[this.refs.plan.selectedIndex].value){
+				existePlan=true;
+				break;
+			}
+		}
+		if(!existePlan)
+		{		
+			this.state.hospitalsByPlan.push(
+			{
+				planId:this.refs.plan.options[this.refs.plan.selectedIndex].value,
+				planName:this.refs.plan.options[this.refs.plan.selectedIndex].text,
+				hospitals:[]
+			}
+			)
+		}
+console.log(this.state.hospitalsByPlan)
+	},
+
 	fcCancel:function(){
 		browserHistory.push('/');
 	},
@@ -87,7 +144,8 @@ module.exports = React.createClass ({
 		hospitals:[],
 		healthCarePlanSelected:[],
 		hospitalsSelected:[],
-		hospitalsSelected2:[]
+		hospitalsSelected2:[],
+    	hospitalsByPlan:[]
     	}
   	},	
 	
@@ -165,68 +223,73 @@ module.exports = React.createClass ({
 		let userState = store.getState().user.userState;
 		if (userState === UserStates.LOGGED){
 			return(
-			<div>
+			<div className="cols-md-12">
 
-				<br />
-				<form className="form-inline">
-					<div className="form-group">
-					  	<label className="margin-right-20">Obra Social</label>
-					   	<div className="input-group left-50">
-					   		<span className="input-group-addon"></span>
-					   		<input ref="healthCare" type="text" required className="form-control" placeholder="Ingrese el nombre de la obra social"/>
+				<div className="cols-md-6">
+					<br />
+					<form className="form-inline">
+						<div className="form-group">
+						  	<label className="margin-right-20">Obra Social</label>
+						   	<div className="input-group left-50">
+						   		<span className="input-group-addon"></span>
+						   		<input ref="healthCare" type="text" required className="form-control" placeholder="Ingrese el nombre de la obra social"/>
+							</div>
 						</div>
+					</form>
+
+					<form className="form-inline">
+					  	<div className="form-group">
+					    	<label className="margin-right-20">Email</label>
+					    	<div className="input-group left-50">
+						   		<span className="input-group-addon"></span>
+						   		<input ref="email" type="text" required className="form-control" placeholder="Ingrese email"/>
+							</div>
+					    </div>
+					</form>
+					<form className="form-inline">
+					  	<div className="form-group">
+					    	<label className="margin-right-20">Teléfono</label>
+					    	<div className="input-group left-50">
+						   		<span className="input-group-addon"></span>
+						   		<input ref="phone" type="text" required className="form-control" placeholder="Ingrese el teléfono"/>
+							</div>
+					    </div>
+					</form>
+
+					<form className="form-inline">
+					  	<div className="form-group">
+					    	<label className="margin-right-20">Planes</label>
+					    	<div className="input-group left-50">
+						   		<span className="input-group-addon"></span>
+						   		<select ref="plan" size="5" onClick={this.fcAddPlan.bind(this)}>{optionsHealthCarePlan}</select>
+							</div>
+					    </div>
+
+					</form>
+
+					<br />
+
+					<form className="form-inline">
+					  	<div className="form-group">
+					    	<label className="margin-right-20">Hospitales</label>
+					    	<div className="input-group left-50">
+						   		<span className="input-group-addon"></span>
+						   		<select ref="hospital" size="10" onClick={this.fcAddHospital.bind(this)}>{optionsHospital}</select>
+							</div>
+					    </div>
+					</form>
+
+					<br />
+					<br />
+				 	<div className="form-group login-register">
+						<button type="button" className="btn btn-primary login-button" onClick={this.fcConfirm}>Confirmar</button>
+						<button type="button" className="btn btn-primary login-button" onClick={this.fcCancel}>Cancelar</button>
 					</div>
-				</form>
 
-				<form className="form-inline">
-				  	<div className="form-group">
-				    	<label className="margin-right-20">Email</label>
-				    	<div className="input-group left-50">
-					   		<span className="input-group-addon"></span>
-					   		<input ref="email" type="text" required className="form-control" placeholder="Ingrese email"/>
-						</div>
-				    </div>
-				</form>
-				<form className="form-inline">
-				  	<div className="form-group">
-				    	<label className="margin-right-20">Teléfono</label>
-				    	<div className="input-group left-50">
-					   		<span className="input-group-addon"></span>
-					   		<input ref="phone" type="text" required className="form-control" placeholder="Ingrese el teléfono"/>
-						</div>
-				    </div>
-				</form>
-
-				<form className="form-inline">
-				  	<div className="form-group">
-				    	<label className="margin-right-20">Hospitales</label>
-				    	<div className="input-group left-50">
-					   		<span className="input-group-addon"></span>
-					   		<select ref="hospital" size="5" multiple>{optionsHospital}</select>
-						</div>
-				    </div>
-				</form>
-				<br />
-				<form className="form-inline">
-				  	<div className="form-group">
-				    	<label className="margin-right-20">Planes</label>
-				    	<div className="input-group left-50">
-					   		<span className="input-group-addon"></span>
-					   		<select ref="plan" size="5" multiple>{optionsHealthCarePlan}</select>
-						</div>
-				    </div>
-
-				</form>
-
-
-				<br />
-				<br />
-			 	<div className="form-group login-register">
-					<button type="button" className="btn btn-primary login-button" onClick={this.fcConfirm}>Confirmar</button>
-					<button type="button" className="btn btn-primary login-button" onClick={this.fcCancel}>Cancelar</button>
 				</div>
-
-
+				<div className="cols-md-6">
+					<h2>HOLA</h2>
+				</div>
 
 			</div>
 			)
@@ -240,61 +303,25 @@ module.exports = React.createClass ({
 	}
 })
 
-			// <div className="main-login main-center">
-			// 	<form className="form-horizontal">
-			// 		<div className="form-group">
-			// 			<label className="cols-sm-2 control-label">Nombre Obra Social</label>
-			// 			<div className="cols-sm-10">
-			// 				<div className="input-group">
-			// 					<span className="input-group-addon"></span>
-			// 					<input ref="healthCare" type="text" required className="form-control" placeholder="Obra social"/>
-			// 				</div>
-			// 			</div>
-			// 		</div>
+				// <form className="form-inline">
+				//   	<div className="form-group">
+				//     	<label className="margin-right-20">Planes</label>
+				//     	<div className="input-group left-50">
+				// 	   		<span className="input-group-addon"></span>
+				// 	   		<select ref="plan" size="5" multiple>{optionsHealthCarePlan}</select>
+				// 		</div>
+				//     </div>
 
-			// 		<div className="form-group">
-			// 			<label className="cols-sm-2 control-label">Email</label>
-			// 			<div className="cols-sm-10">
-			// 				<div className="input-group">
-			// 					<span className="input-group-addon"></span>
-			// 					<input ref="email" type="text" required className="form-control" placeholder="Ingrese email"/>
-			// 				</div>
-			// 			</div>
-			// 		</div>
+				// </form>
 
-			// 		<div className="form-group">
-			// 			<label className="cols-sm-2 control-label">Teléfono</label>
-			// 			<div className="cols-sm-10">
-			// 				<div className="input-group">
-			// 					<span className="input-group-addon"></span>
-			// 					<input ref="phone" type="text" required className="form-control" placeholder="Ingrese teléfono"/>
-			// 				</div>
-			// 			</div>
-			// 		</div>
+				// <br />
 
-			// 		<div className="form-group">
-			// 			<label className="cols-sm-2 control-label">Hospitales</label>
-			// 			<div className="cols-sm-10">
-			// 				<div className="input-group">
-			// 					<span className="input-group-addon"></span>
-			// 					<select ref="hospital" size="3" multiple>{optionsHospital}</select>
-			// 				</div>
-			// 			</div>
-			// 		</div>
-
-			// 		<div className="form-group">
-			// 			<label className="cols-sm-2 control-label">Planes</label>
-			// 			<div className="cols-sm-10">
-			// 				<div className="input-group">
-			// 					<span className="input-group-addon"></span>
-			// 					<select ref="plan" size="3" multiple>{optionsHealthCarePlan}</select>
-			// 				</div>
-			// 			</div>
-			// 		</div>
-
-			// 		<div className="form-group login-register">
-			// 			<button type="button" className="btn btn-primary login-button" onClick={this.fcConfirm}>Confirmar</button>
-			// 			<button type="button" className="btn btn-primary login-button" onClick={this.fcCancel}>Cancelar</button>
-			// 		</div>
-			// 	</form>
-			// </div>
+				// <form className="form-inline">
+				//   	<div className="form-group">
+				//     	<label className="margin-right-20">Hospitales</label>
+				//     	<div className="input-group left-50">
+				// 	   		<span className="input-group-addon"></span>
+				// 	   		<select ref="hospital" size="5" multiple>{optionsHospital}</select>
+				// 		</div>
+				//     </div>
+				// </form>

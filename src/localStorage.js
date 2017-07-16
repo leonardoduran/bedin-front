@@ -4,6 +4,7 @@ export const loadState = () => {
 		if(serializedState === null){
 			return undefined;
 		}
+		return undefined; //(Para que no tome el estado guardado cuando refresca la página)
 		return JSON.parse(serializedState);
 	}catch(err){
 		return undefined;

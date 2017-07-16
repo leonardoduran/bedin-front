@@ -10,13 +10,6 @@ import UserStates from '../models/listed';
 import store from '../store';
 
 module.exports = React.createClass ({
-	
-	// componentWillReceiveProps(nextProps) {
-	// console.log("Ejecuto", nextProps.children)
-	//     this.setState({
-	//         children: nextProps.children
-	//     });
-	// },
 
 	render: function(){
 		let userState = store.getState().user.userState;
@@ -45,12 +38,3 @@ module.exports = React.createClass ({
 		)
 	}
 })
-
-				// <div>
-					// {React.cloneElement(this.props.children, this.props)}
-				// </div>
-
-
-                // <div className="container">
-                //     {this.props.children}
-                // </div>

@@ -5,7 +5,7 @@ module.exports = React.createClass ({
 	render: function(){
 		return(
 			<div>
-				<img src="LogoBedIn.jpg" alt="logo" className="mainImage"/>
+				<img src="logobdin.png" alt="logo" className="mainImage"/>
 			</div>
 		)
 	}

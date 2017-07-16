@@ -28,7 +28,7 @@ module.exports = React.createClass ({
           <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddPatientRequest"> Generar solicitud </IndexLink>
           <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHospital"> Agregar Hospital </IndexLink>
           <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHealthCarePlan"> Agregar Plan </IndexLink>
-          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHealthCare"> Agregar Obra Social </IndexLink>
+          <IndexLink  className="clsButton clsButton4"  activeClassName="active" to="/AddHealthCare"> Agregar Financiador </IndexLink>
       </div>
       )
     

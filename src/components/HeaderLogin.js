@@ -60,6 +60,7 @@ module.exports = React.createClass ({
 							<i className="glyphicon glyphicon-lock"></i>
 							<input onKeyPress={this.fcPressPass} type="password" className="clsInputLogin" ref="userPassword" placeholder="Contraseña"></input>
 							<Button bsSize="small" onClick={this.fcIniciarSesion}>Iniciar sesión</Button>
+							<Link   to="/RegistryUser"> Nuevo usuario </Link>
 						</span>						
 					</div>
 				</div>
